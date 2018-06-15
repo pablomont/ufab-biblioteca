@@ -10,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.ufab.dao.IUsuarioDAO;
 import com.ufab.entidade.Aluno;
 import com.ufab.entidade.Usuario;
 import com.ufab.enumerador.MensagensEnum;
@@ -20,6 +19,7 @@ import com.ufab.excecao.AlunoValidacaoException;
 import com.ufab.excecao.PermissaoServicoException;
 import com.ufab.excecao.UsuarioServicoException;
 import com.ufab.excecao.UsuarioValidacaoException;
+import com.ufab.repository.UsuarioRepository;
 import com.ufab.seguranca.UsuarioAutenticado;
 import com.ufab.servico.IAlunoServico;
 import com.ufab.servico.IPermissaoServico;
@@ -38,7 +38,7 @@ public class UsuarioServico implements IUsuarioServico {
 	private Logger LOGGER = Logger.getLogger(UsuarioServico.class);
 
 	@Autowired
-	private IUsuarioDAO usuarioDao;
+	private UsuarioRepository usuarioRepo;
 
 	@Autowired
 	private IAlunoServico alunoServico;
@@ -53,7 +53,7 @@ public class UsuarioServico implements IUsuarioServico {
 			if (usuario.getPerfil().getTipoPerfil().equals(TipoPerfil.ALUNO)) {
 				alunoServico.validarAluno((Aluno) usuario);
 			}
-			usuarioDao.inserir(usuario);
+			usuarioRepo.save(usuario);
 		} catch (UsuarioValidacaoException e) {
 			LOGGER.error(MensagensEnum.USUARIO_SERVICO_ERRO_AO_VALIDAR_USUARIO.getValor(), e);
 			throw new UsuarioServicoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_INSERIR.getValor());
@@ -66,12 +66,12 @@ public class UsuarioServico implements IUsuarioServico {
 
 	@Override
 	public List<Usuario> recuperarTodos() {
-		return usuarioDao.recuperarTodos();
+		return usuarioRepo.findAll();
 	}
 
 	@Override
 	public Usuario recuperarPorCpf(String cpf) {
-		return usuarioDao.recuperarPorCpf(cpf);
+		return usuarioRepo.recuperarPorCpf(cpf);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class UsuarioServico implements IUsuarioServico {
 			if (usuario.getPerfil().getTipoPerfil().equals(TipoPerfil.ALUNO)) {
 				alunoServico.validarAluno((Aluno) usuario);
 			}
-			usuarioDao.atualizar(usuario);
+			usuarioRepo.save(usuario);
 		} catch (UsuarioValidacaoException e) {
 			LOGGER.error(MensagensEnum.USUARIO_SERVICO_ERRO_AO_VALIDAR_USUARIO.getValor(), e);
 			throw new UsuarioServicoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_ATUALIZAR.getValor());
@@ -132,7 +132,7 @@ public class UsuarioServico implements IUsuarioServico {
 			if (usuarioARemover.getPerfil().getTipoPerfil().equals(TipoPerfil.ALUNO)) {
 				permissaoServico.verificarPermissao(usuarioRequerente, TipoPermissao.EXCLUIR_ALUNO);
 			}
-			usuarioDao.remover(usuarioARemover);
+			usuarioRepo.delete(usuarioARemover);
 		} catch (PermissaoServicoException e) {
 			LOGGER.error(e);
 			throw new UsuarioServicoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_REMOVER.getValor());

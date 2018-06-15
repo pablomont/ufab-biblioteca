@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.ufab.dao.IUsuarioDAO;
 import com.ufab.entidade.Usuario;
 import com.ufab.enumerador.MensagensEnum;
 import com.ufab.seguranca.UsuarioAutenticado;
@@ -18,15 +17,16 @@ public class AppUserDetailsService implements UserDetailsService {
 	protected final Logger LOGGER = Logger.getLogger(UserDetailsService.class);
 
 	@Autowired
-	IUsuarioDAO userDao;
+	//IUsuarioDAO userDao;
 
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-		final Usuario user = userDao.recuperarPorCpf(username);
-		if (user == null) {
-			throw new UsernameNotFoundException(MensagensEnum.USUARIO_NAO_EXISTE.getValor());
-		}
-		return new UsuarioAutenticado(user);
+		//final Usuario user = userDao.recuperarPorCpf(username);
+//		if (user == null) {
+//			throw new UsernameNotFoundException(MensagensEnum.USUARIO_NAO_EXISTE.getValor());
+//		}
+//		return new UsuarioAutenticado(user);
+		return null;
 	}
 
 }

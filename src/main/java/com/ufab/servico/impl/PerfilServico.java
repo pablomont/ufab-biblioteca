@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufab.dao.IPerfilDAO;
 import com.ufab.entidade.Perfil;
 import com.ufab.enumerador.TipoPerfil;
+import com.ufab.repository.PerfilRepository;
 import com.ufab.servico.IPerfilServico;
 /***
  * Servico para tratar de todas as manipulacoes de negocio com o Perfil
@@ -19,22 +19,22 @@ import com.ufab.servico.IPerfilServico;
 public class PerfilServico implements IPerfilServico {
 
 	@Autowired
-	private IPerfilDAO perfilDao;
+	private PerfilRepository perfilRepo;
 
 	@Override
 	public void inserir(Perfil perfil) {
-		perfilDao.inserir(perfil);
+		perfilRepo.save(perfil);
 	}
 
 	@Override
 	public List<Perfil> recuperarTodos() {
-		return perfilDao.recuperarTodos();
+		return perfilRepo.findAll();
 	}
 
 	@Override
 	public Perfil recuperarPorTipo(TipoPerfil tipoPerfil) {
 		
-		return perfilDao.recuperarPorTipo(tipoPerfil);
+		return perfilRepo.recuperarPorTipo(tipoPerfil);
 	}
 
 }

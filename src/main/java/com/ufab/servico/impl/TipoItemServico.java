@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufab.dao.ITipoItemDAO;
 import com.ufab.entidade.TipoItem;
+import com.ufab.repository.TipoItemRepository;
 import com.ufab.servico.ITipoItemServico;
 /***
  * Servico para tratar de todas as manipulacoes de negocio com o Tipo de item
@@ -21,17 +21,17 @@ import com.ufab.servico.ITipoItemServico;
 public class TipoItemServico implements ITipoItemServico {
 	
 	@Autowired
-	private ITipoItemDAO iTipoItemDAO;
+	private TipoItemRepository iTipoItemRepo;
 	
 
 	@Override
 	public void inserir(TipoItem tipoItem) {
-		iTipoItemDAO.inserir(tipoItem);
+		iTipoItemRepo.save(tipoItem);
 	}
 
 	@Override
 	public List<TipoItem> listarTodos() {
-		return iTipoItemDAO.listarTodos();
+		return iTipoItemRepo.findAll();
 	}
 	
 }

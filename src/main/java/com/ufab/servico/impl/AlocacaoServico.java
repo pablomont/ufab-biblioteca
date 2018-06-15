@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufab.dao.IAlocacaoDAO;
 import com.ufab.entidade.Alocacao;
+import com.ufab.repository.AlocacaoRepository;
 import com.ufab.servico.IAlocacaoServico;
 /***
  * Servico para tratar de todas as manipulacoes de negocio com a Alocacao
@@ -18,26 +18,26 @@ import com.ufab.servico.IAlocacaoServico;
 public class AlocacaoServico implements IAlocacaoServico {
 
 	@Autowired
-	private IAlocacaoDAO alocacaoDao;
+	private AlocacaoRepository alocacaoRepo;
 
 	@Override
 	public void inserir(Alocacao alocacao) {
-		alocacaoDao.inserir(alocacao);
+		alocacaoRepo.save(alocacao);
 	}
 
 	@Override
 	public void remover(Alocacao alocacao) {
-		alocacaoDao.remover(alocacao);
+		alocacaoRepo.delete(alocacao);
 	}
 
 	@Override
 	public void atualiar(Alocacao alocacao) {
-		alocacaoDao.atualizar(alocacao);
+		alocacaoRepo.save(alocacao);
 	}
 
 	@Override
 	public List<Alocacao> recuperarTodas() {
-		return alocacaoDao.recuperarTodas();
+		return alocacaoRepo.findAll();
 	}
 
 }

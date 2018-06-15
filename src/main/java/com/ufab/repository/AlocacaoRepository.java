@@ -1,14 +1,13 @@
 package com.ufab.repository;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.ufab.entidade.TipoCurso;
+import com.ufab.entidade.Alocacao;
 
 @Repository
-public interface TipoCursoRepository extends JpaRepository<TipoCurso,Integer>  {
-	@Query("SELECT c FROM tipocurso c WHERE c.cod = :codTipoCurso")
-	TipoCurso procurarPorId(@Param("codTipoCurso")Integer id);
+public interface AlocacaoRepository extends JpaRepository<Alocacao,Integer> {
+	@Query("SELECT c FROM alocacao c WHERE c.cod = :codAlocacao")
+	Alocacao procurarPorId(@Param("codAlocacao")Integer id);
 }

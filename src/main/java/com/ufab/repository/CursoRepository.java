@@ -8,6 +8,9 @@ import com.ufab.entidade.Curso;
 
 @Repository
 public interface CursoRepository extends JpaRepository<Curso,Integer> {
-	@Query("SELECT c FROM curso c WHERE c.id = :idCurso")
-	Curso procurarPorId(@Param("idCurso")Integer id);
+	@Query("SELECT c FROM curso c WHERE c.cod = :codCurso")
+	Curso procurarPorCod(@Param("codCurso")Integer id);
+	
+	Curso findByCod(Integer cod);
+
 }

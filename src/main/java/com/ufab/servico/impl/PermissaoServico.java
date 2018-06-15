@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufab.dao.IPermissaoDAO;
 import com.ufab.entidade.Permissao;
 import com.ufab.entidade.Usuario;
 import com.ufab.enumerador.MensagensEnum;
 import com.ufab.enumerador.TipoPermissao;
 import com.ufab.excecao.PermissaoServicoException;
+import com.ufab.repository.PermissaoRepository;
 import com.ufab.servico.IPermissaoServico;
 /***
  * Servico para tratar de todas as manipulacoes de negocio com a Permissao
@@ -22,16 +22,16 @@ import com.ufab.servico.IPermissaoServico;
 public class PermissaoServico implements IPermissaoServico {
 
 	@Autowired
-	private IPermissaoDAO permissaoDao;
+	private PermissaoRepository permissaoRepo;
 
 	@Override
 	public void inserir(Permissao permissao) {
-		permissaoDao.inserir(permissao);
+		permissaoRepo.save(permissao);
 	}
 
 	@Override
 	public List<Permissao> recuperarTodas() {
-		return permissaoDao.recuperarTodas();
+		return permissaoRepo.findAll();
 	}
 
 	@Override

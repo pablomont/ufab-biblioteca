@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufab.dao.ICursoDAO;
 import com.ufab.entidade.Curso;
 import com.ufab.enumerador.MensagensEnum;
 import com.ufab.excecao.CursoServicoException;
@@ -51,7 +50,7 @@ public class CursoServico implements ICursoServico {
 
 	@Override
 	public Curso recuperarPorCod(Integer cod) throws CursoServicoException {
-		return cursoRepo.procurarPorId(cod);
+		return cursoRepo.procurarPorCod(cod);
 	}
 
 	@Override
