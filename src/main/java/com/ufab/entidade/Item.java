@@ -32,7 +32,7 @@ public abstract class Item implements Serializable {
 	private static final long serialVersionUID = -2445630987238795469L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer codigo;
+	private int codigo;
 
 	@Column(unique = true)
 	private String titulo;

@@ -25,7 +25,7 @@ public class AlocacaoPrimaryKey implements Serializable {
 
 	private static final long serialVersionUID = -4575425848885346079L;
 
-	public AlocacaoPrimaryKey(String ano, String periodo, Integer codCurso, String cpfAlu) {
+	public AlocacaoPrimaryKey(String ano, String periodo, int codCurso, String cpfAlu) {
 		super();
 		this.ano = ano;
 		this.periodo = periodo;

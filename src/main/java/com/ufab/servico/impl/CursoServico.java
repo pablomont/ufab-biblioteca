@@ -6,11 +6,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufab.dao.ICursoDAO;
 import com.ufab.entidade.Curso;
 import com.ufab.enumerador.MensagensEnum;
 import com.ufab.excecao.CursoServicoException;
 import com.ufab.excecao.CursoValidacaoException;
-import com.ufab.repository.CursoRepository;
 import com.ufab.servico.ICursoServico;
 
 /***
@@ -27,18 +27,18 @@ public class CursoServico implements ICursoServico {
 	private final Logger LOGGER = Logger.getLogger(CursoServico.class);
 
 	@Autowired
-	private CursoRepository cursoRepo;
+	private ICursoDAO cursoDao;
 
 	@Override
 	public List<Curso> recuperarTodos() {
-		return cursoRepo.findAll();
+		return cursoDao.recuperarTodos();
 	}
 
 	@Override
 	public void inserir(Curso curso) throws CursoServicoException {
 		try {
 			validar(curso);
-			cursoRepo.save(curso);
+			cursoDao.inserir(curso);
 		} catch (CursoValidacaoException e) {
 			LOGGER.error(MensagensEnum.CURSO_SERVICO_ERRO_AO_VALIDAR_CURSO.getValor(), e);
 			throw new CursoServicoException(MensagensEnum.CURSO_SERVICO_ERRO_AO_VALIDAR_CURSO.getValor());
@@ -49,8 +49,8 @@ public class CursoServico implements ICursoServico {
 	}
 
 	@Override
-	public Curso recuperarPorCod(Integer cod) throws CursoServicoException {
-		return cursoRepo.procurarPorCod(cod);
+	public Curso recuperarPorCod(int cod) throws CursoServicoException {
+		return cursoDao.recuperarPorCod(cod);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class CursoServico implements ICursoServico {
 		if (curso == null) {
 			throw new CursoServicoException(MensagensEnum.CURSO_SERVICO_ERRO_PARAMETRO_CURSO_NULO.getValor());
 		}
-		cursoRepo.delete(curso);
+		cursoDao.remover(curso);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class CursoServico implements ICursoServico {
 		}
 		try {
 			validar(curso);
-			cursoRepo.save(curso);
+			cursoDao.atualizar(curso);
 		} catch (CursoValidacaoException e) {
 			LOGGER.error(MensagensEnum.CURSO_SERVICO_ERRO_AO_VALIDAR_CURSO.getValor(), e);
 			throw new CursoServicoException(MensagensEnum.CURSO_SERVICO_ERRO_AO_VALIDAR_CURSO.getValor());

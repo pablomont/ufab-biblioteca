@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufab.dao.ITipoCursoDAO;
 import com.ufab.entidade.TipoCurso;
-import com.ufab.repository.TipoCursoRepository;
 import com.ufab.servico.ITipoCursoServico;
 /***
  * Servico para tratar de todas as manipulacoes de negocio com o Tipo de curso
@@ -21,20 +21,21 @@ import com.ufab.servico.ITipoCursoServico;
 public class TipoCursoServico implements ITipoCursoServico {
 
 	@Autowired
-	private TipoCursoRepository tipoCursoRepository;
+	private ITipoCursoDAO iTipoCursoDAO;
 
 	@Override
 	public void inserir(TipoCurso tipoCurso) {
-		tipoCursoRepository.save(tipoCurso);
+		iTipoCursoDAO.inserir(tipoCurso);
 	}
 
 	@Override
 	public List<TipoCurso> listarTodos() {
-		return tipoCursoRepository.findAll();
+		return iTipoCursoDAO.listarTodos();
 	}
 
 	@Override
-	public TipoCurso recuperarPorCodigo(Integer tipoCursoCodigo) {
-		return tipoCursoRepository.procurarPorId(tipoCursoCodigo);
+	public TipoCurso recuperarPorCodigo(int tipoCursoCodigo) {
+		
+		return iTipoCursoDAO.recuperarPorCodigo(tipoCursoCodigo);
 	}
 }

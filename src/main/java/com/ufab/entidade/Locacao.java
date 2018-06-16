@@ -19,7 +19,7 @@ public class Locacao implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private Integer cod_locacao;
+	private int cod_locacao;
 
 	private Date dt_locacao;
 

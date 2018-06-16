@@ -25,5 +25,5 @@ public interface ITipoCursoServico {
 	 * @param tipoCursoCodigo Codigo do Tipo
 	 * @return TipoCurso que contem o codigo informado.
 	 */
-	public TipoCurso recuperarPorCodigo(Integer tipoCursoCodigo);
+	public TipoCurso recuperarPorCodigo(int tipoCursoCodigo);
 }

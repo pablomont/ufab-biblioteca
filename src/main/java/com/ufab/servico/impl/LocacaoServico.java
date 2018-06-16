@@ -8,11 +8,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufab.dao.ILocacaoDAO;
 import com.ufab.entidade.Locacao;
 import com.ufab.enumerador.MensagensEnum;
 import com.ufab.excecao.LocacaoServicoException;
 import com.ufab.excecao.LocacaoValidacaoException;
-import com.ufab.repository.LocacaoRepository;
 import com.ufab.servico.ILocacaoServico;
 
 @Service
@@ -21,14 +21,14 @@ public class LocacaoServico implements ILocacaoServico {
 	static final Logger LOGGER = Logger.getLogger(LocacaoServico.class);
 
 	@Autowired
-	private LocacaoRepository locacaoRepo;
+	private ILocacaoDAO locacaoDao;
 
 	@Override
 	public void inserir(Locacao locacao) throws LocacaoServicoException {
 		try {
 			validarLocacao(locacao);
 			locacao.setDt_locacao(new Date(Calendar.getInstance().getTime().getTime()));
-			locacaoRepo.save(locacao);
+			locacaoDao.inserir(locacao);
 		} catch (LocacaoValidacaoException e) {
 			LOGGER.error(MensagensEnum.LOCACAO_SERVICO_ERRO_AO_VALIDAR.getValor());
 			throw new LocacaoServicoException(e.getMessage());
@@ -37,19 +37,19 @@ public class LocacaoServico implements ILocacaoServico {
 
 	@Override
 	public void remover(Locacao locacao) {
-		locacaoRepo.delete(locacao);
+		locacaoDao.remover(locacao);
 	}
 
 	@Override
 	public List<Locacao> listarTodas() {
-		return locacaoRepo.findAll();
+		return locacaoDao.listarTodas();
 	}
 
 	@Override
 	public void atualizar(Locacao locacao) throws LocacaoServicoException {
 		try {
 			validarLocacao(locacao);
-			locacaoRepo.save(locacao);
+			locacaoDao.atualizar(locacao);
 		} catch (LocacaoValidacaoException e) {
 			LOGGER.error(MensagensEnum.LOCACAO_SERVICO_ERRO_AO_VALIDAR.getValor());
 			throw new LocacaoServicoException(e.getMessage());

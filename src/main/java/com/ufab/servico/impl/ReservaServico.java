@@ -8,11 +8,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufab.dao.IReservaDAO;
 import com.ufab.entidade.Reserva;
 import com.ufab.enumerador.MensagensEnum;
 import com.ufab.excecao.ReservaServicoException;
 import com.ufab.excecao.ReservaValidacaoException;
-import com.ufab.repository.ReservaRepository;
 import com.ufab.servico.IReservaServico;
 
 @Service
@@ -21,14 +21,14 @@ public class ReservaServico implements IReservaServico {
 	static final Logger LOGGER = Logger.getLogger(ReservaServico.class);
 
 	@Autowired
-	private ReservaRepository reservaRepo;
+	private IReservaDAO reservaDao;
 
 	@Override
 	public void inserir(Reserva reserva) throws ReservaServicoException {
 		try {
 			validarReserva(reserva);
 			reserva.setDt_reserva(new Date(Calendar.getInstance().getTime().getTime()));
-			reservaRepo.save(reserva);
+			reservaDao.inserir(reserva);
 		} catch (ReservaValidacaoException e) {
 			LOGGER.error(MensagensEnum.RESERVA_SERVICO_ERRO_AO_VALIDAR.getValor());
 			throw new ReservaServicoException(e.getMessage());
@@ -38,19 +38,19 @@ public class ReservaServico implements IReservaServico {
 
 	@Override
 	public List<Reserva> recuperarTodos() {
-		return reservaRepo.findAll();
+		return reservaDao.recuperarTodos();
 	}
 
 	@Override
 	public void remover(Reserva reserva) {
-		reservaRepo.delete(reserva);
+		reservaDao.remover(reserva);
 	}
 
 	@Override
 	public void atualizar(Reserva reserva) throws ReservaServicoException {
 		try {
 			validarReserva(reserva);
-			reservaRepo.save(reserva);
+			reservaDao.atualizar(reserva);
 		} catch (ReservaValidacaoException e) {
 			LOGGER.error(MensagensEnum.RESERVA_SERVICO_ERRO_AO_VALIDAR.getValor());
 			throw new ReservaServicoException(e.getMessage());

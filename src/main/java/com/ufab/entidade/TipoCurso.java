@@ -18,7 +18,7 @@ public class TipoCurso {
 
 	@Id
 	@GeneratedValue
-	private Integer cod;
+	private long cod;
 
 	private String nomeCurso;
 
@@ -26,7 +26,7 @@ public class TipoCurso {
 		return cod;
 	}
 
-	public void setCod(Integer cod) {
+	public void setCod(long cod) {
 		this.cod = cod;
 	}
 

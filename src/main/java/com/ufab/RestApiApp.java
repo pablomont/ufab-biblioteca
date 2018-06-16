@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-@SpringBootApplication(scanBasePackages={"br.uepb.edu.ufab"})// same as @Configuration @EnableAutoConfiguration @ComponentScan combined
+@SpringBootApplication(scanBasePackages={"com.ufab"})// same as @Configuration @EnableAutoConfiguration @ComponentScan combined
 public class RestApiApp {
 
 	public static void main(String[] args) {

@@ -6,11 +6,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufab.dao.IItemDAO;
 import com.ufab.entidade.Item;
 import com.ufab.enumerador.MensagensEnum;
 import com.ufab.excecao.ItemServicoException;
 import com.ufab.excecao.ItemValidacaoException;
-import com.ufab.repository.ItemRepository;
 import com.ufab.servico.IItemServico;
 
 /***
@@ -26,13 +26,13 @@ public class ItemServico implements IItemServico {
 	private final Logger LOGGER = Logger.getLogger(ItemServico.class);
 
 	@Autowired
-	private ItemRepository itemRepo;
+	private IItemDAO itemDao;
 
 	@Override
 	public void inserir(Item item) throws ItemServicoException {
 		try {
 			validar(item);
-			itemRepo.save(item);
+			itemDao.inserir(item);
 		} catch (ItemValidacaoException e) {
 			LOGGER.error(MensagensEnum.ITEM_SERVICO_ERRO_AO_VALIDAR_ITEM.getValor(), e);
 			throw new ItemServicoException(MensagensEnum.ITEM_SERVICO_ERRO_AO_VALIDAR_ITEM.getValor());
@@ -45,13 +45,13 @@ public class ItemServico implements IItemServico {
 
 	@Override
 	public Item recuperarPorCodigo(int codigo) throws ItemServicoException {
-		return itemRepo.procurarPorId(codigo);
+		return itemDao.recuperarPorCodigo(codigo);
 
 	}
 
 	@Override
 	public List<Item> recuperarTodos() {
-		return itemRepo.findAll();
+		return itemDao.recuperarTodos();
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class ItemServico implements IItemServico {
 		}
 		try {
 			validar(item);
-			itemRepo.save(item);
+			itemDao.atualizar(item);
 		} catch (ItemValidacaoException e) {
 			LOGGER.error(MensagensEnum.ITEM_SERVICO_ERRO_AO_VALIDAR_ITEM.getValor(), e);
 			throw new ItemServicoException(MensagensEnum.ITEM_SERVICO_ERRO_AO_VALIDAR_ITEM.getValor());
@@ -74,7 +74,7 @@ public class ItemServico implements IItemServico {
 		if (item == null) {
 			throw new ItemServicoException(MensagensEnum.ITEM_SERVICO_ERRO_PARAMETRO_ITEM_NULO.getValor());
 		}
-		itemRepo.delete(item);
+		itemDao.remover(item);
 	}
 
 	/**
