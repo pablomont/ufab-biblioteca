@@ -106,7 +106,7 @@ public class UsuarioServico implements IUsuarioServico {
 		
 		Usuario usuarioARemover = recuperarPorId(id);
 		if(usuarioARemover == null)
-			
+			throw new UsuarioServicoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_REMOVER.getValor());
 		
 		usuarioDao.remover(usuarioARemover);
 	}

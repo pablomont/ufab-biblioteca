@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -29,14 +30,21 @@ public class Aluno implements Serializable {
 	private static final long serialVersionUID = 2739350983865960294L;
 
 	@Id
+	@GeneratedValue
+	@Column()
+	private int id;
+	
 	@Column(unique = true)
 	private String matricula;
 	
-	@Column(name = "aluno_cpf")
+	@Column(name = "nome_completo")
+	private String nomeCompleto;
+	
+	@Column(unique = true, name = "aluno_cpf")
 	private String cpf;
 
 	@Enumerated(EnumType.STRING)
-	private TipoNivelAluno tipoNivelAluno;
+	private TipoNivelAluno tipoNivel;
 
 	@Column(name = "nome_mae")
 	private String nomeMae;
@@ -50,12 +58,12 @@ public class Aluno implements Serializable {
 		this.matricula = matricula;
 	}
 
-	public TipoNivelAluno getTipoNivelAluno() {
-		return tipoNivelAluno;
+	public TipoNivelAluno getTipoNivel() {
+		return tipoNivel;
 	}
 
-	public void setTipoNivelAluno(TipoNivelAluno tipoNivelAluno) {
-		this.tipoNivelAluno = tipoNivelAluno;
+	public void setTipoNivel(TipoNivelAluno tipoNivelAluno) {
+		this.tipoNivel = tipoNivelAluno;
 	}
 
 	public String getNomeMae() {
@@ -72,6 +80,22 @@ public class Aluno implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNomeCompleto() {
+		return nomeCompleto;
+	}
+
+	public void setNomeCompleto(String nomeCompleto) {
+		this.nomeCompleto = nomeCompleto;
 	}
 
 	

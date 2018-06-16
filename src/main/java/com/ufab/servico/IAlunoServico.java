@@ -1,8 +1,13 @@
 package com.ufab.servico;
 
 
+import java.util.List;
+
 import com.ufab.entidade.Aluno;
+import com.ufab.entidade.Usuario;
+import com.ufab.excecao.AlunoServicoException;
 import com.ufab.excecao.AlunoValidacaoException;
+
 
 public interface IAlunoServico {
 
@@ -26,6 +31,20 @@ public interface IAlunoServico {
 	 * @param aluno
 	 *            Aluno que deseja receber a nova matricula
 	 * @return Uma String com a matricula
+	 * @throws AlunoServicoException 
 	 */
+	
+	public void inserir(Aluno aluno) throws AlunoServicoException;
+	
 	public String gerarMatricula(Aluno aluno);
+	
+	public void remover(Integer id) throws AlunoServicoException;
+	
+	public Aluno recuperarPorId(int id);
+	
+	public Aluno recuperarPorMatricula(String matricula);
+	
+	public List<Aluno> recuperarTodos();
+
+	public void atualizar(Aluno currentAluno) throws AlunoServicoException;
 }

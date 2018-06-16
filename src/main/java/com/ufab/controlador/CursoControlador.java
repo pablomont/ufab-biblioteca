@@ -35,7 +35,7 @@ public class CursoControlador {
 		
         try {
 			cursoServico.inserir(curso);
-	        headers.setLocation(ucBuilder.path("/usuario/{id}").buildAndExpand(curso.getCod()).toUri());
+	        headers.setLocation(ucBuilder.path("/curso/{cod}").buildAndExpand(curso.getCod()).toUri());
 	        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 		} catch (CursoServicoException e) {
 			// TODO Auto-generated catch block
@@ -64,13 +64,13 @@ public class CursoControlador {
 	 * @return curso
 	 */
 
-	@RequestMapping(value = "/curso/{cod}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Curso> getCurso(@PathVariable("cod") Integer cod){
+	@RequestMapping(value = "/curso/{tag}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Curso> getCurso(@PathVariable("tag") String tag){
 		 Curso curso;
 		try {
-			curso = cursoServico.recuperarPorCod(cod);
+			curso = cursoServico.recuperarPorTag(tag);
 			if (curso == null) {
-	            System.out.println("User with id " + cod + " not found");
+	            System.out.println("Curso with tag " + tag + " not found");
 	            return new ResponseEntity<Curso>(HttpStatus.NOT_FOUND);
 	        }
 	        return new ResponseEntity<Curso>(curso, HttpStatus.OK);

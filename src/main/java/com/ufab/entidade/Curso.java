@@ -30,7 +30,7 @@ public class Curso implements Serializable {
 	@Column(name = "curso_cod")
 	private Integer cod;
 
-	@Column(unique = true)
+	@Column
 	private String nome;
 	
 	@Column
@@ -40,7 +40,7 @@ public class Curso implements Serializable {
 	@JoinColumn(name = "FK_TipoCurso_cod")
 	private TipoCurso tipoCurso;
 
-
+	@Column(unique = true)
 	private String tag;
 
 	public TipoCurso getTipoCurso() {

@@ -10,6 +10,8 @@ public interface ICursoDAO {
 	public List<Curso> recuperarTodos();
 
 	public Curso recuperarPorCod(Integer cod);
+	
+	public Curso recuperarPorTag(String tag);
 
 	public void remover(Curso curso);
 

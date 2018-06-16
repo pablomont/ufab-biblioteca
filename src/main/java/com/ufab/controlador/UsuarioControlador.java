@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import com.ufab.entidade.Curso;
 import com.ufab.entidade.Usuario;
 import com.ufab.excecao.UsuarioServicoException;
 import com.ufab.servico.IUsuarioServico;
@@ -114,16 +112,18 @@ public class UsuarioControlador {
     }
     
     /** Deleta o usuário informado **/
-    @RequestMapping(value = "/usuario/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Usuario> deleteUser(@PathVariable("id") Integer id) {
+    @RequestMapping(value = "/usuario/{cpf}", method = RequestMethod.DELETE)
+    public ResponseEntity<Usuario> deleteUser(@PathVariable("cpf") String cpf) {
 
+    	int id = 0;
     	try {
+    		id = usuarioServico.recuperarPorCpf(cpf).getId();
 			usuarioServico.remover(id);
 			return new ResponseEntity<Usuario>(HttpStatus.NO_CONTENT);
 		} catch (UsuarioServicoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new ResponseEntity<Usuario>(usuarioServico.recuperarPorId(id), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Usuario>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     	
     }

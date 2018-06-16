@@ -40,4 +40,10 @@ public class CursoDAO extends DAO implements ICursoDAO {
 		getCurrentSession().update(curso);
 	}
 
+	@Override
+	public Curso recuperarPorTag(String tag) {
+		return (Curso) getCurrentSession().createQuery("from curso where tag = :tag").setString("tag", tag)
+				.uniqueResult();
+	}
+
 }

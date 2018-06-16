@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
 	@Column()
 	private int id;
 	
-	@Column(name = "usuario_cpf")
+	@Column(unique = true, name = "usuario_cpf")
 	private String cpf;
 
 	@Column(name = "data_cadastro")

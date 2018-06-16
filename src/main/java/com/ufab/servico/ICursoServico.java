@@ -60,4 +60,6 @@ public interface ICursoServico {
 	 */
 	public void atualizar(Curso curso) throws CursoServicoException;
 
+	public Curso recuperarPorTag(String tag) throws CursoServicoException;
+
 }

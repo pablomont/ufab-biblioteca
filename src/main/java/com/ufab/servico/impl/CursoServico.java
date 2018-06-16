@@ -108,4 +108,9 @@ public class CursoServico implements ICursoServico {
 		}
 	}
 
+	@Override
+	public Curso recuperarPorTag(String tag) {
+		return cursoDao.recuperarPorTag(tag);
+	}
+
 }
