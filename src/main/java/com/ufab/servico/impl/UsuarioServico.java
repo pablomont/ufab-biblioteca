@@ -9,17 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufab.dao.IUsuarioDAO;
-import com.ufab.entidade.Aluno;
 import com.ufab.entidade.Usuario;
 import com.ufab.enumerador.MensagensEnum;
 import com.ufab.enumerador.TipoPerfil;
-import com.ufab.enumerador.TipoPermissao;
-import com.ufab.excecao.AlunoValidacaoException;
-import com.ufab.excecao.PermissaoServicoException;
 import com.ufab.excecao.UsuarioServicoException;
 import com.ufab.excecao.UsuarioValidacaoException;
-import com.ufab.servico.IAlunoServico;
-import com.ufab.servico.IPermissaoServico;
 import com.ufab.servico.IUsuarioServico;
 
 /***
@@ -37,25 +31,15 @@ public class UsuarioServico implements IUsuarioServico {
 	@Autowired
 	private IUsuarioDAO usuarioDao;
 
-	@Autowired
-	private IAlunoServico alunoServico;
-
-	@Autowired
-	private IPermissaoServico permissaoServico;
 
 	@Override
 	public void inserir(Usuario usuario) throws UsuarioServicoException {
 		try {
 			validarUsuario(usuario);
-			if (usuario.getPerfil().getTipoPerfil().equals(TipoPerfil.ALUNO)) {
-				alunoServico.validarAluno((Aluno) usuario);
-			}
+			
 			usuarioDao.inserir(usuario);
 		} catch (UsuarioValidacaoException e) {
 			LOGGER.error(MensagensEnum.USUARIO_SERVICO_ERRO_AO_VALIDAR_USUARIO.getValor(), e);
-			throw new UsuarioServicoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_INSERIR.getValor());
-		} catch (AlunoValidacaoException e) {
-			LOGGER.error(MensagensEnum.USUARIO_SERVICO_ERRO_AO_VALIDAR_USUARIO_ALUNO.getValor(), e);
 			throw new UsuarioServicoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_INSERIR.getValor());
 		}
 
@@ -75,17 +59,11 @@ public class UsuarioServico implements IUsuarioServico {
 	public void atualizar(Usuario usuario) throws UsuarioServicoException {
 		try {
 			validarUsuario(usuario);
-			if (usuario.getPerfil().getTipoPerfil().equals(TipoPerfil.ALUNO)) {
-				alunoServico.validarAluno((Aluno) usuario);
-			}
 			usuarioDao.atualizar(usuario);
 		} catch (UsuarioValidacaoException e) {
 			LOGGER.error(MensagensEnum.USUARIO_SERVICO_ERRO_AO_VALIDAR_USUARIO.getValor(), e);
 			throw new UsuarioServicoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_ATUALIZAR.getValor());
-		} catch (AlunoValidacaoException e) {
-			LOGGER.error(MensagensEnum.USUARIO_SERVICO_ERRO_AO_VALIDAR_USUARIO_ALUNO.getValor(), e);
-			throw new UsuarioServicoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_INSERIR.getValor());
-		}
+		} 
 	}
 
 	private void validarUsuario(Usuario usuario) throws UsuarioValidacaoException {
@@ -118,22 +96,18 @@ public class UsuarioServico implements IUsuarioServico {
 		if (usuario.getSenha() == null) {
 			throw new UsuarioValidacaoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_VALIDAR_SENHA_NULO.getValor());
 		}
-		if (usuario.getPerfil() == null) {
+		if (usuario.getTipo() == null) {
 			throw new UsuarioValidacaoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_VALIDAR_PERFIL_NULO.getValor());
 		}
 	}
 
 	@Override
-	public void remover(Usuario usuarioRequerente, Usuario usuarioARemover) throws UsuarioServicoException {
-		try {
-			if (usuarioARemover.getPerfil().getTipoPerfil().equals(TipoPerfil.ALUNO)) {
-				permissaoServico.verificarPermissao(usuarioRequerente, TipoPermissao.EXCLUIR_ALUNO);
-			}
-			usuarioDao.remover(usuarioARemover);
-		} catch (PermissaoServicoException e) {
-			LOGGER.error(e);
-			throw new UsuarioServicoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_REMOVER.getValor());
-		}
+	public void remover(Usuario usuarioARemover) throws UsuarioServicoException {
+		usuarioDao.remover(usuarioARemover);
+	}
 
+	@Override
+	public Usuario recuperarPorId(int id) {
+		return usuarioDao.recuperarPorId(id);
 	}
 }

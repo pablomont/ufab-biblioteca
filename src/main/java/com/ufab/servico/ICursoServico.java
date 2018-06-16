@@ -35,7 +35,7 @@ public interface ICursoServico {
 	 * @exception CursoServicoException
 	 *                Caso ocorra algum erro com o código do Curso
 	 */
-	public Curso recuperarPorCod(int cod) throws CursoServicoException;
+	public Curso recuperarPorCod(Integer cod) throws CursoServicoException;
 
 	/**
 	 * Remover um curso informando seu codigo.
@@ -45,7 +45,7 @@ public interface ICursoServico {
 	 * @exception CursoServicoException
 	 *                Caso ocorra algum erro com o Curso informado
 	 */
-	public void remover(Curso curso) throws CursoServicoException;
+	public void remover(Integer cod) throws CursoServicoException;
 
 	/**
 	 * Atualizar os dados de um curso, sendo ele informado via parametro para o

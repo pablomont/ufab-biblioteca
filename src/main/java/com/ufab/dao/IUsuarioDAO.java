@@ -12,6 +12,8 @@ public interface IUsuarioDAO {
 
 	public Usuario recuperarPorCpf(String cpf);
 
+	public Usuario recuperarPorId(int id);
+	
 	public void atualizar(Usuario usuario);
 	
 	public void remover(Usuario usuario);

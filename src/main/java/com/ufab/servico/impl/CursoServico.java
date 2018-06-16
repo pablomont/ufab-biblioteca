@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ufab.dao.ICursoDAO;
@@ -49,15 +51,19 @@ public class CursoServico implements ICursoServico {
 	}
 
 	@Override
-	public Curso recuperarPorCod(int cod) throws CursoServicoException {
+	public Curso recuperarPorCod(Integer cod) throws CursoServicoException {
 		return cursoDao.recuperarPorCod(cod);
 	}
 
 	@Override
-	public void remover(Curso curso) throws CursoServicoException {
+	public void remover(Integer cod) throws CursoServicoException {
+			
+
+		Curso curso = recuperarPorCod(cod);
 		if (curso == null) {
 			throw new CursoServicoException(MensagensEnum.CURSO_SERVICO_ERRO_PARAMETRO_CURSO_NULO.getValor());
 		}
+			
 		cursoDao.remover(curso);
 	}
 

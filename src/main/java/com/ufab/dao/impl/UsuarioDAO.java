@@ -42,4 +42,10 @@ public class UsuarioDAO extends DAO implements Serializable, IUsuarioDAO {
 		getCurrentSession().delete(usuario);
 	}
 
+	@Override
+	public Usuario recuperarPorId(int id) {
+		return (Usuario) getCurrentSession().createQuery("FROM usuario WHERE id = :id").setInteger("id", id)
+				.uniqueResult();
+	}
+
 }

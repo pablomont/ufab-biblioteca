@@ -7,11 +7,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.ufab.entidade.Curso;
 import com.ufab.excecao.CursoServicoException;
@@ -23,7 +23,7 @@ import com.ufab.servico.ICursoServico;
  * @author Bianca
  *
  */
-@Controller
+@RestController
 public class CursoControlador {
 
 	@Autowired
@@ -109,16 +109,9 @@ public class CursoControlador {
 	 @RequestMapping(value = "/curso/{cod}", method = RequestMethod.DELETE)
 	    public ResponseEntity<Curso> deleteCurso(@PathVariable("cod") Integer cod) {
 	       
-	 
-	        Curso curso;
-			try {
-				curso = cursoServico.recuperarPorCod(cod);
-				if (curso == null) {
-		            System.out.println("Unable to delete. Curso with id " + cod + " not found");
-		            return new ResponseEntity<Curso>(HttpStatus.NOT_FOUND);
-		        }
-				 cursoServico.remover(curso);
-				 return new ResponseEntity<Curso>(HttpStatus.NO_CONTENT);
+		 	try {
+				cursoServico.remover(cod);
+				return new ResponseEntity<Curso>(HttpStatus.NO_CONTENT);
 			} catch (CursoServicoException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

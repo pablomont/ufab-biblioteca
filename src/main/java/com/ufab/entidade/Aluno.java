@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -23,12 +24,16 @@ import com.ufab.enumerador.TipoNivelAluno;
 @Entity(name = "aluno")
 @Table(name = "aluno")
 @PrimaryKeyJoinColumn(name = "FK_Usuario_cpf")
-public class Aluno extends Usuario implements Serializable {
+public class Aluno implements Serializable {
 
 	private static final long serialVersionUID = 2739350983865960294L;
 
+	@Id
 	@Column(unique = true)
 	private String matricula;
+	
+	@Column(name = "aluno_cpf")
+	private String cpf;
 
 	@Enumerated(EnumType.STRING)
 	private TipoNivelAluno tipoNivelAluno;
@@ -61,5 +66,14 @@ public class Aluno extends Usuario implements Serializable {
 		this.nomeMae = nomeMae;
 	}
 
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	
 
 }

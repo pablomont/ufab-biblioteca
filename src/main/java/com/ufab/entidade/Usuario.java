@@ -1,16 +1,24 @@
 package com.ufab.entidade;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ufab.enumerador.TipoPerfil;
 
 /**
  * A Classe representa os usuasrios do sistema.
@@ -25,28 +33,38 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = -2545934978443985246L;
 
 	@Id
+	@GeneratedValue
+	@Column()
+	private int id;
+	
 	@Column(name = "usuario_cpf")
 	private String cpf;
 
 	@Column(name = "data_cadastro")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
 	private Date dataCadastro;
 	@Column(name = "data_nascimento")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
 	private Date dataNascimento;
 
+	@Column
 	private String senha;
+	@Column
 	private String endereco;
+	@Column
 	private String naturalidade;
-
+	@Column
 	private String rg;
 	@Column(name = "nome_completo")
 	private String nomeCompleto;
-
+	@Column
 	private String fone;
 
-	@ManyToOne
-	@JoinColumn(name = "FK_Perfil_cod")
-	private Perfil perfil;
-
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "nome")
+	private TipoPerfil tipo;
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -58,9 +76,10 @@ public class Usuario implements Serializable {
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
-
+	
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+		
 	}
 
 	public Date getDataNascimento() {
@@ -119,12 +138,22 @@ public class Usuario implements Serializable {
 		this.fone = fone;
 	}
 
-	public Perfil getPerfil() {
-		return perfil;
+	public TipoPerfil getTipo() {
+		return tipo;
 	}
 
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
+	public void setTipo(TipoPerfil tipo) {
+		this.tipo = tipo;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	
 
 }

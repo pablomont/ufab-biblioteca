@@ -23,14 +23,16 @@ public class CursoDAO extends DAO implements ICursoDAO {
 	}
 
 	@Override
-	public Curso recuperarPorCod(int cod) {
+	public Curso recuperarPorCod(Integer cod) {
+	
 		return (Curso) getCurrentSession().createQuery("from curso where cod = :cod").setInteger("cod", cod)
 				.uniqueResult();
 	}
 
 	@Override
 	public void remover(Curso curso) {
-		getCurrentSession().delete(curso);
+		
+		getCurrentSession();
 	}
 
 	@Override

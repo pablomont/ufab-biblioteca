@@ -9,7 +9,7 @@ public interface ICursoDAO {
 
 	public List<Curso> recuperarTodos();
 
-	public Curso recuperarPorCod(int cod);
+	public Curso recuperarPorCod(Integer cod);
 
 	public void remover(Curso curso);
 

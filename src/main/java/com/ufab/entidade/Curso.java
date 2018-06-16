@@ -28,7 +28,7 @@ public class Curso implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name = "curso_cod")
-	private int cod;
+	private Integer cod;
 
 	@Column(unique = true)
 	private String nome;

@@ -3,6 +3,7 @@ package com.ufab.servico;
 import java.util.List;
 
 import com.ufab.entidade.Usuario;
+import com.ufab.enumerador.TipoPerfil;
 import com.ufab.excecao.UsuarioServicoException;
 
 public interface IUsuarioServico {
@@ -55,8 +56,8 @@ public interface IUsuarioServico {
 	 *                Caso o usuário requerente não possua permissao para a acao de
 	 *                remover.
 	 */
-	public void remover(Usuario usuarioRequerente, Usuario usuarioARemover) throws UsuarioServicoException;
+	public void remover(Usuario usuarioARemover) throws UsuarioServicoException;
 	
-	
+	public Usuario recuperarPorId(int id);
 	
 }
