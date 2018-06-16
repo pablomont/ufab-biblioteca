@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ufab.entidade.Curso;
 import com.ufab.excecao.CursoServicoException;
+import com.ufab.excecao.UsuarioServicoException;
 
 public interface ICursoServico {
 
@@ -44,6 +45,7 @@ public interface ICursoServico {
 	 *            Curso que existe no sistema, e deseja ser removido
 	 * @exception CursoServicoException
 	 *                Caso ocorra algum erro com o Curso informado
+	 * @throws  
 	 */
 	public void remover(Integer cod) throws CursoServicoException;
 

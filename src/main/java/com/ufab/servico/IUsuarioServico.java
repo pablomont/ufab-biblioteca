@@ -56,7 +56,7 @@ public interface IUsuarioServico {
 	 *                Caso o usuário requerente não possua permissao para a acao de
 	 *                remover.
 	 */
-	public void remover(Usuario usuarioARemover) throws UsuarioServicoException;
+	public void remover(Integer id) throws UsuarioServicoException;
 	
 	public Usuario recuperarPorId(int id);
 	

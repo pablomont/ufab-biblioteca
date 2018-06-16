@@ -13,6 +13,7 @@ import com.ufab.entidade.Curso;
 import com.ufab.enumerador.MensagensEnum;
 import com.ufab.excecao.CursoServicoException;
 import com.ufab.excecao.CursoValidacaoException;
+import com.ufab.excecao.UsuarioServicoException;
 import com.ufab.servico.ICursoServico;
 
 /***
@@ -56,7 +57,7 @@ public class CursoServico implements ICursoServico {
 	}
 
 	@Override
-	public void remover(Integer cod) throws CursoServicoException {
+	public void remover(Integer cod) throws CursoServicoException  {
 			
 
 		Curso curso = recuperarPorCod(cod);

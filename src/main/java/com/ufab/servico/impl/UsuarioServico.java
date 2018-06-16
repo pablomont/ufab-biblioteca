@@ -102,7 +102,12 @@ public class UsuarioServico implements IUsuarioServico {
 	}
 
 	@Override
-	public void remover(Usuario usuarioARemover) throws UsuarioServicoException {
+	public void remover(Integer id) throws UsuarioServicoException {
+		
+		Usuario usuarioARemover = recuperarPorId(id);
+		if(usuarioARemover == null)
+			
+		
 		usuarioDao.remover(usuarioARemover);
 	}
 
