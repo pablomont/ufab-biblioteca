@@ -75,7 +75,7 @@ public class CursoServicoTest {
 		Curso c1;
 		TipoCurso t1;
 		t1 = new TipoCurso();
-		t1.setNome("Graduação");
+		t1.setTipo("Graduação");
 		tipoCursoServico.inserir(t1);
 
 		c1 = new Curso();
@@ -107,7 +107,7 @@ public class CursoServicoTest {
 		} catch (IndexOutOfBoundsException e) {
 			// Precisa criar, não existe na base
 			tipoCurso = new TipoCurso();
-			tipoCurso.setNome("Graduação");
+			tipoCurso.setTipo("Graduação");
 			tipoCursoServico.inserir(tipoCurso);
 		}
 
@@ -134,7 +134,7 @@ public class CursoServicoTest {
 		} catch (IndexOutOfBoundsException e) {
 			// Precisa criar, não existe na base
 			tipoCurso = new TipoCurso();
-			tipoCurso.setNome("Graduação");
+			tipoCurso.setTipo("Graduação");
 			tipoCursoServico.inserir(tipoCurso);
 		}
 

@@ -32,15 +32,13 @@ public class Curso implements Serializable {
 
 	@Column(unique = true)
 	private String nome;
-
+	
+	@Column
 	private String area;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "FK_TipoCurso_cod")
 	private TipoCurso tipoCurso;
-
-	@OneToMany(mappedBy = "curso")
-	private List<Alocacao> alocacoes;
 
 
 	private String tag;
@@ -86,8 +84,6 @@ public class Curso implements Serializable {
 		this.tag = tag;
 	}
 	
-	public List<Alocacao> getAlocacoes() {
-		return alocacoes;
-	}
+
 
 }

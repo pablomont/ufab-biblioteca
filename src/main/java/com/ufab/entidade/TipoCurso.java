@@ -1,5 +1,6 @@
 package com.ufab.entidade;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,7 +21,8 @@ public class TipoCurso {
 	@GeneratedValue
 	private long cod;
 
-	private String nomeCurso;
+	@Column
+	private String tipo;
 
 	public long getCod() {
 		return cod;
@@ -30,12 +32,14 @@ public class TipoCurso {
 		this.cod = cod;
 	}
 
-	public String getNome() {
-		return nomeCurso;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setNome(String nome) {
-		this.nomeCurso = nome;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
+
+ 
 
 }

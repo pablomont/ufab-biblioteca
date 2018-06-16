@@ -36,12 +36,7 @@ public class Aluno extends Usuario implements Serializable {
 	@Column(name = "nome_mae")
 	private String nomeMae;
 
-	@OneToMany(mappedBy = "aluno")
-	private List<Alocacao> alocacoes;
 
-	@OneToMany(mappedBy = "aluno")
-	private List<Locacao> locacoes;
-	
 	public String getMatricula() {
 		return matricula;
 	}
@@ -66,14 +61,5 @@ public class Aluno extends Usuario implements Serializable {
 		this.nomeMae = nomeMae;
 	}
 
-	public List<Alocacao> getAlocacoes() {
-		return alocacoes;
-	}
-
-	public void setAlocacoes(List<Alocacao> alocacoes) {
-		this.alocacoes = alocacoes;
-	}
-	
-	
 
 }

@@ -43,9 +43,6 @@ public abstract class Item implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoItem tipoItem;
 
-	@OneToMany(mappedBy = "item")
-	private List<Locacao> locacoes;
-
 	public String getTitulo() {
 		return titulo;
 	}

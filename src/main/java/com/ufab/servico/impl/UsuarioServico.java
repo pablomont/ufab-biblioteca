@@ -6,8 +6,6 @@ import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.ufab.dao.IUsuarioDAO;
@@ -20,7 +18,6 @@ import com.ufab.excecao.AlunoValidacaoException;
 import com.ufab.excecao.PermissaoServicoException;
 import com.ufab.excecao.UsuarioServicoException;
 import com.ufab.excecao.UsuarioValidacaoException;
-import com.ufab.seguranca.UsuarioAutenticado;
 import com.ufab.servico.IAlunoServico;
 import com.ufab.servico.IPermissaoServico;
 import com.ufab.servico.IUsuarioServico;
@@ -138,12 +135,5 @@ public class UsuarioServico implements IUsuarioServico {
 			throw new UsuarioServicoException(MensagensEnum.USUARIO_SERVICO_ERRO_AO_REMOVER.getValor());
 		}
 
-	}
-
-	@Override
-	public Usuario recuperarUsuarioAutenticado() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		UsuarioAutenticado usu = (UsuarioAutenticado) auth.getPrincipal();
-		return usu.getUsuario();
 	}
 }

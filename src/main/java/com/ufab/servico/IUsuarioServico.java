@@ -57,10 +57,6 @@ public interface IUsuarioServico {
 	 */
 	public void remover(Usuario usuarioRequerente, Usuario usuarioARemover) throws UsuarioServicoException;
 	
-	/**
-	 * Metodo utilizado para retornar um usuario autenticado, caso exista.
-	 * @return Usuario autenticado.
-	 */
-	public Usuario recuperarUsuarioAutenticado();
+	
 	
 }

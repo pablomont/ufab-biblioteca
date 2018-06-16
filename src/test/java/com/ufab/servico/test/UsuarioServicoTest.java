@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ufab.entidade.Alocacao;
-import com.ufab.entidade.AlocacaoPrimaryKey;
 import com.ufab.entidade.Aluno;
 import com.ufab.entidade.Curso;
 import com.ufab.entidade.Funcionario;
@@ -27,7 +25,7 @@ import com.ufab.enumerador.TipoPerfil;
 import com.ufab.enumerador.TipoPermissao;
 import com.ufab.excecao.CursoServicoException;
 import com.ufab.excecao.UsuarioServicoException;
-import com.ufab.servico.IAlocacaoServico;
+
 import com.ufab.servico.IAlunoServico;
 import com.ufab.servico.ICursoServico;
 import com.ufab.servico.IPerfilServico;
@@ -48,8 +46,6 @@ public class UsuarioServicoTest {
 	@Autowired
 	private IAlunoServico alunoServico;
 
-	@Autowired
-	private IAlocacaoServico alocacaoServico;
 
 	@Autowired
 	private ICursoServico cursoServico;
@@ -199,9 +195,6 @@ public class UsuarioServicoTest {
 		a.setSenha("asdasdasasdas");
 		a.setTipoNivelAluno(TipoNivelAluno.DOUTORADO);
 
-		// Gerear alocacao pra matricula
-		Alocacao alocacao = new Alocacao();
-		alocacao.setAluno(a);
 		Curso c = null;
 
 		try {
@@ -213,7 +206,7 @@ public class UsuarioServicoTest {
 			c.setTag("FS");
 
 			TipoCurso tp = new TipoCurso();
-			tp.setNome("Graduacao");
+			tp.setTipo("Graduacao");
 
 			c.setTipoCurso(tp);
 			try {
@@ -221,12 +214,10 @@ public class UsuarioServicoTest {
 			} catch (CursoServicoException e1) {
 				assertTrue(false);
 			}
-		} finally {
-			alocacao.setCurso(c);
-		}
-		alocacao.setId(new AlocacaoPrimaryKey("2017", "1", c.getCod(), a.getCpf()));
+		} 
+		
 
-		String matricula = alunoServico.gerarMatricula(alocacao);
+		String matricula = alunoServico.gerarMatricula(a);
 		a.setMatricula(matricula);
 
 		Perfil p = null;
@@ -252,7 +243,7 @@ public class UsuarioServicoTest {
 		} catch (UsuarioServicoException e) {
 			assertTrue(false);
 		}
-		alocacaoServico.inserir(alocacao);
+	
 	}
 
 	@Test(expected = UsuarioServicoException.class)
@@ -267,9 +258,8 @@ public class UsuarioServicoTest {
 		a.setNomeCompleto("Nomecasdasdas");
 		a.setRg("65165687");
 		a.setSenha("asdasdasasdas");
-		// Gerear alocacao pra matricula
-		Alocacao alocacao = new Alocacao();
-		alocacao.setAluno(a);
+		
+		
 		Curso c = null;
 
 		try {
@@ -281,7 +271,7 @@ public class UsuarioServicoTest {
 			c.setTag("FS");
 
 			TipoCurso tp = new TipoCurso();
-			tp.setNome("Graduacao");
+			tp.setTipo("Graduacao");
 
 			c.setTipoCurso(tp);
 			try {
@@ -289,12 +279,10 @@ public class UsuarioServicoTest {
 			} catch (CursoServicoException e1) {
 				assertTrue(false);
 			}
-		} finally {
-			alocacao.setCurso(c);
-		}
-		alocacao.setId(new AlocacaoPrimaryKey("2017", "1", c.getCod(), a.getCpf()));
+		} 
+		
 		a.setTipoNivelAluno(TipoNivelAluno.DOUTORADO);
-		String matricula = alunoServico.gerarMatricula(alocacao, a);
+		String matricula = alunoServico.gerarMatricula(a);
 		a.setMatricula(matricula);
 		Perfil p = null;
 		try {
@@ -316,7 +304,7 @@ public class UsuarioServicoTest {
 		}
 		a.setTipoNivelAluno(null);
 		usuarioServico.inserir(a);
-		alocacaoServico.inserir(alocacao);
+
 	}
 
 	@Test(expected = UsuarioServicoException.class)
@@ -485,8 +473,7 @@ public class UsuarioServicoTest {
 		b.setSenha("asdasdasdasd");
 		b.setTipoNivelAluno(TipoNivelAluno.MESTRADO);
 		// Gerear alocacao pra matricula
-		Alocacao alocacao = new Alocacao();
-		alocacao.setAluno(b);
+
 		Curso c = null;
 
 		try {
@@ -498,7 +485,7 @@ public class UsuarioServicoTest {
 			c.setTag("FS");
 
 			TipoCurso tp = new TipoCurso();
-			tp.setNome("Graduacao");
+			tp.setTipo("Graduacao");
 
 			c.setTipoCurso(tp);
 			try {
@@ -506,12 +493,10 @@ public class UsuarioServicoTest {
 			} catch (CursoServicoException e1) {
 				assertTrue(false);
 			}
-		} finally {
-			alocacao.setCurso(c);
-		}
-		alocacao.setId(new AlocacaoPrimaryKey("2017", "1", c.getCod(), b.getCpf()));
+		} 
+	
 
-		String matricula = alunoServico.gerarMatricula(alocacao, b);
+		String matricula = alunoServico.gerarMatricula(b);
 		b.setMatricula(matricula);
 		Perfil p1 = null;
 		try {
@@ -533,7 +518,7 @@ public class UsuarioServicoTest {
 		}
 		try {
 			usuarioServico.inserir(b);
-			alocacaoServico.inserir(alocacao);
+
 		} catch (UsuarioServicoException e) {
 			assertTrue(false);
 		}
@@ -602,9 +587,8 @@ public class UsuarioServicoTest {
 		b.setRg("342132132112321");
 		b.setSenha("asdasdasdasd");
 		b.setTipoNivelAluno(TipoNivelAluno.GRADUACAO);
-		// Gerear alocacao pra matricula
-		Alocacao alocacao = new Alocacao();
-		alocacao.setAluno(b);
+	
+
 		Curso c = null;
 
 		try {
@@ -616,7 +600,7 @@ public class UsuarioServicoTest {
 			c.setTag("FS");
 
 			TipoCurso tp = new TipoCurso();
-			tp.setNome("Graduacao");
+			tp.setTipo("Graduacao");
 
 			c.setTipoCurso(tp);
 			try {
@@ -624,12 +608,10 @@ public class UsuarioServicoTest {
 			} catch (CursoServicoException e1) {
 				assertTrue(false);
 			}
-		} finally {
-			alocacao.setCurso(c);
-		}
-		alocacao.setId(new AlocacaoPrimaryKey("2017", "1", c.getCod(), b.getCpf()));
+		} 
+	
 
-		String matricula = alunoServico.gerarMatricula(alocacao, b);
+		String matricula = alunoServico.gerarMatricula(b);
 		b.setMatricula(matricula);
 		Perfil p1 = null;
 		try {
@@ -651,7 +633,6 @@ public class UsuarioServicoTest {
 		}
 		try {
 			usuarioServico.inserir(b);
-			alocacaoServico.inserir(alocacao);
 		} catch (UsuarioServicoException e) {
 			assertTrue(false);
 		}
