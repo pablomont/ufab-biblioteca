@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -36,8 +38,7 @@ public class Curso implements Serializable {
 	@Column
 	private String area;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "FK_TipoCurso_cod")
+	@Enumerated(EnumType.STRING)
 	private TipoCursoEnum tipo;
 
 	@Column(unique = true)
